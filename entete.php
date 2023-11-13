@@ -47,6 +47,7 @@
             <li><a class="dropdown-item" href="conditions.php">Conditions</a></li>
             <li><a class="dropdown-item" href="boucles.php">Boucles</a></li>
             <li><a class="dropdown-item" href="cnx.php">Connexion BDD</a></li>
+            <li><a class="dropdown-item" href="rechercher.php">Rechercher</a></li>
           </ul>
         </li>
       </form>

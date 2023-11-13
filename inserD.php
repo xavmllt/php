@@ -25,7 +25,7 @@
 
         // on crée la requête SQL
         $sql = 'INSERT INTO personne (NumAch, Nom, Age, Ville, Sexe) VALUES (\'\', \'Alain\', 32, \'Manchester\', \'M\')';
-        echo 'insertion réalisé avec succès !';
+        // echo 'insertion réalisé avec succès !';
 
         $result = mysqli_query($con, $sql) || die ('Echec de la requête insert');
 
