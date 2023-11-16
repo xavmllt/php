@@ -104,13 +104,169 @@
         En résumé, grâce à l'assesseur, nous avons pu accéder à la valeur de l'attribut privée $prenom;
 
         CONCLUSION
-        Un mutateur permet de modifier la valeur d'une propriété. Alors qu'un assesseur permet d'en récupérer son contenu
+        Un mutateur permet de modifier la valeur d'une propriété. Alors qu'un assesseur permet d'en récupérer son contenu.
 
 
+        LE PRINCIPE DE L'ENCAPSULATION
+        *** Définition
+        Le principe de l'encapsulation est une notion fondamentale de la poo. L'encapsulation à protéger l'information contenue dans un objet en ne proposant que des méthodes pour manipuler les objets.
+
+        ** Mise en pratique
+        Sans le savoir nous avons dans la partie précédente mis en place ce principe d'encaspulation. En effet, concernant l'attribut $prenom, nous lui avons affécté une visibilité privée. Nous avons vu qu'il n'était pas possible d'y accéder directement. C'est la raison pour laquelle nous avons crée des méthodes afin de pouvoir modifier et afficher le contenu de la propriété $prenom (et les autres : $nom, $age).
+        Et lorsque nous avons crée ces méthodes, nous leur avons attribué une visibilité publique afin de pouvoir y accéder et donc les manipuler.
+
+        ** Les niveaux d'accessibilité 
+        Les niveaux d'accessibilité vont vous sembler familière puisque nous les avons déjà vu précédemment. 
+        Rappel :
+            visibilité publique permet d'accéder à la propriété ou à la méthode depuis l'intérieur ou depuis l'extérieur de la classe.
+            
+            visibilité privée : permet d'accéder à la propriété ou à la méthode uniquement depuis l'intérieur de la classe.
+
+            visibilité protégée :  permet d'accéder à la propriété ou la méthode depuis l'intérieur de la classe elle-même ou de ses classes filles.
+
+        
+        ** Principe général
+
+        Les propriétés d'un objet seront privés ou protégées afin de n'être accessible que depuis la classe elle-même ou depuis une classe fille.
+        Les méthodes d'un objet seront publiques afin de pouvoir y accéder de n'importe quel endroit de notre site, afin de manipuler les attributs(ou propriétés).
+
+        En résumé, grâce aux exemple vus, nous avons donc acquis le principe de l'encapsulation, ce qui permet d'en faire un simple rappel et bien ordonner nos nouvelles connaissances concernant la POO.
 
 
+        L'HÉRITAGE
 
+        *** Principe de l'héritage
 
+        Lorsque nous créons une classe, celle-ci peut être une classe générale qui contiendra ses propres propriétés et méthodes.
+        Mais nous aurons peut être besoin d'avoir des classes spécifiques qui soient reliées à la classe générale.
 
+        ** Cas concret 
+    */
+        class Eleve{
+            private $_prenom;
+            public function setPrenom($prenom){
+                $this->_prenom = $prenom;
+            }
+            public function getPrenom(){
+                return $this->_prenom;
+            }
+        }
+    /*
+        Nous allons créer une nouvelle classe qui sera une classe fille de la classe Eleve. Cette nouvelle classe appellera la propriété $_prenom de la classe Eleve, et lorsque nous auront affiché le prénom issu de cette nouvelle classe, nous souhaiterons obtenir un prénom dont la première lettre sera en majuscule.
+        Nous afficherons également cette classe d'une propriété devont récupèrer l'âge. Nous appelerons cette classe Elevefille et nous nommerons le fichier contenant cette nouvelle classe Elevefille.class.php
+
+        Avant d'écrire cette nouvelle classe, nous allons devoir modifier la visibilité de la propriété = _prenom de la classe Eleve, puisque nous souhaiteront accéder à cette propriété depuis la classe fille que nous allons créer.
+        Par conséqent la visibilité de la propriété $_prenom ne sera plus privée mais protégée (protected). Ceci afin de pouvoir y accéder depuis la classe fille.
+    */
+        class Eleve{
+            protected $_prenom;
+            public function setPrenom($prenom){
+                $this->_prenom = $prenom;
+            }
+            public function getPrenom(){
+                return $this->_prenom;
+            }
+        }
+    /*
+        Maintenant nous pouvons créer notre classe fille qui pourra accéder à la propriété $_prenom de la classe Eleve 
+    */
+        class Elevefille extends Eleve{
+
+        }
+    /*
+        Ainsi nous pouvons accéder à la classe mère, soit la classe Eleve, ensuite nous avons dit que nous souhaitons accéder à la propriété = _prenom de la classe Eleve afin de pouvoir écrire le prénom avec une première lettre en majuscule.
+        Pour cela, il nous suffit simplement de réecrire la méthode setPrenom à l'intérieur de la classe Elevefille en lui ajoutant la fonction ucfirst() qui permet d'afficher la première lettre d'une chaîne de caractères en majuscule.
+    */
+        public function setPrenom($prenom){
+            $this->_prenom = ucfirst($prenom);
+        }
+    /*
+        Il n'est pas utile de réecrire la méthode setPrenom puisque celle-ci a déjà été écrite dans la classe Eleve, dont la classe Elevefille en est une hééritière.
+
+        Il nous reste à déclarer la propriété concernant l'âge ainsi que ses méthodes (assesseur et mutateur). Celles-ci seront propres à la classe Elevefille.
+    */
+        class Elevefille extends Eleve{
+            private $_age;
+
+            public function setAge($age){
+                $this->_age = $age;
+            }
+            public function getAge(){
+                return $this->_age;
+            }
+
+            public function setPrenom($prenom){
+                $this->_prenom = ucfirst($prenom);
+            }
+        }
+    /*
+        Nous déclarons la propriété $_age en visibilité privée (private) car cette propriété ne sera accéssible que par la classe qui la contient. C'est à dire la classe Elevefille.
+        Ensuite nous déclarons les méthodes get et set afin de pouvoir modifier l'âge et l'afficher en cas d'appel. Exactement comme nous l'avons fait pour la propriété $_prenom de la classe Eleve.
+
+        *** Récupération des informations
+
+        Maintenant que les deux classes Eleve et Elevefille sont crées, nous pouvons les inclures dans un autre fichier (index.php) et nous servir de leur méthodes.
+    */
+        include('eleve.class.php');
+        include('Elevefille.class.php');
+        
+        $eleveN1 = new Eleve();
+        $eleveN2 = new Elevefille();
+
+        $eleveN1->setPrenom('Alain');
+        $eleveN2->setPrenom('Juline');
+        $eleveN2->setAge(22);
+
+        echo $eleveN1->getPrenom().'<br>';
+        echo $eleveN2->getPrenom().' qui a '.$eleveN2->getAge().' ans.<br>';
+    
+    
+    /* LE CONSTRUCTEUR
+
+    ** Principe
+
+    Le constructeur est ce que l'on appelle en POO, une méthode magique, son principe est de créer des valeurs par défaut au moment de la création d'un nouvel objet. Le constructeur est donc une méthode. Afin de le différencier d'une méthode dite classique, le sonstructeur sera délcar ainsi :
+        function __construct()
+    Il possède deux caractères underscore et sera suivi d'un mot clé construct.
+
+    ** Création
+    Nous allons reprendre le fichier Eleve.class.php en remettant sa propriété $_prenom en visibilité privée, car nous n'allons pas utiliser de classe fille afin de ne pas compléxifier l'explication.
 */
+class Eleve{
+    private $_prenom;
+    public function setPrenom($prenom){
+        $this->_prenom = $prenom;
+    }
+    public function getPrenom(){
+        return $this->_prenom;
+    }
+}
+/*
+    Nous souhaitons enrichir notre classe Eleve en réupérant de manière automatique la date d'inscription d'un élève au moment de sa déclaration lors de l'appel de notre classe Eleve grâce au mot clé new.
+    public function __construct(){
+        $this->dateInscription = date('d/m/Y');
+    }
+    NB : notre constructeur a été délcaré en visibilité publique afin de pouvoir être invoqué de n'importe quel endroit de notre site.
+    Nous définissons l'objet courant grâce à la variable $this, en lui affectant la date au moment de l'inscription.
+*/
+class Eleve{
+    private $_prenom;
+    // constructeur
+    public function __construct(){
+        $this->dateInscription = date('d/m/Y');
+    }
+
+    public function setPrenom($prenom){
+        $this->_prenom = $prenom;
+    }
+    public function getPrenom(){
+        return $this->_prenom;
+    }
+}
+/*
+    Nous allons à présent créer un nouvel élève puis nous irons récupérer sa date d'inscription qui aura été crée de manière automatique par le constructeur.
+*/
+    $eleve1 = new Eleve;
+    $eleve1->setPrenom('Pierre');
+    echo $eleve1->getPrenom();
 ?>
