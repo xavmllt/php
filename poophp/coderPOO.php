@@ -177,9 +177,9 @@
         Ainsi nous pouvons accéder à la classe mère, soit la classe Eleve, ensuite nous avons dit que nous souhaitons accéder à la propriété = _prenom de la classe Eleve afin de pouvoir écrire le prénom avec une première lettre en majuscule.
         Pour cela, il nous suffit simplement de réecrire la méthode setPrenom à l'intérieur de la classe Elevefille en lui ajoutant la fonction ucfirst() qui permet d'afficher la première lettre d'une chaîne de caractères en majuscule.
     */
-        public function setPrenom($prenom){
-            $this->_prenom = ucfirst($prenom);
-        }
+        // public function setPrenom($prenom){
+        //     $this->_prenom = ucfirst($prenom);
+        // }
     /*
         Il n'est pas utile de réecrire la méthode setPrenom puisque celle-ci a déjà été écrite dans la classe Eleve, dont la classe Elevefille en est une hééritière.
 
@@ -268,5 +268,56 @@ class Eleve{
 */
     $eleve1 = new Eleve;
     $eleve1->setPrenom('Pierre');
-    echo $eleve1->getPrenom();
+    echo $eleve1->getPrenom().'<br>';
+    echo 'Cet élève a été inscrit le '.$eleve1->dateInscription;
+/*
+    ** Conclusion
+    Nous venons de créer une méthode consctructeur qui nous permet de pouvoir obtenir des valeurs au moment de la création d'un nouvel objet.
+
+
+    ** LES CONSTANTES 
+
+    --- Principe d'une constante
+
+    Une constante de classe sera toujours attachée à la classe. Elle ne sera accessible qu'en lecture et donc ne pourra en aucun cas être modifiable, ni de l'intérieur ni de l'extérieur de la classe.
+
+
+    Une constante se définie à l'aide du mot clé const et suivie de son nom écrit en majuscule. 
+    const NOMDELACONSTANTE;
+
+    --- Création d'une constante
+
+    Nous allons prendre le fichier eleve.class dans l'état suivant, afin de ne pas complexifier l'explication du fonctionnement de la constante.
+*/
+class Eleve{
+    private $_prenom;
+
+    public function setPrenom($prenom){
+        $this->_prenom = $prenom;
+    }
+    public function getPrenom(){
+        return $this->$prenom;
+    }
+}
+/*
+    Nous souhaitons définir une constante à notre classe. Un élément statique, invariable et qui sera toujours ainsi.
+    La constante que nous voulons créer sera la chaîne de caractères suivante:
+    Élève de notre école.
+
+    Syntaxe : const ECOLE = 'Élève de notre école';
+
+    NB : Par défaut, une constante est toujours publique. Donc on ne précise pas sa visibilité.
+    Également, une constante est dite statique(static). Pour récupérer sa valeur, nous utiliserons les carctères :: (double deux points)
+*/
+class Eleve{
+    const ECOLE = 'Élève de notre école'; // création de la constante
+    private $_prenom;
+
+    public function setPrenom($prenom){
+        $this->_prenom = $prenom;
+    }
+    public function getPrenom(){
+        return $this->$prenom;
+    }
+}
 ?>
