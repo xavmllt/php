@@ -100,13 +100,121 @@
       //Calcul ttc
       $ttc = $ht - $remise + $tva;
       //Je récupère le ttc
-      echo "Le ttc est : ".$ttc."<br>"
+      echo "Le ttc est : ".$ttc."<br>";
 
+
+      echo "<br><br>";
+
+      echo "AUTRES TYPES DE FONCTIONS AVANCEES";
+
+      /*
+      1) FONCTION STATIQUE
+      Une variable délcarée à l'intérieur d'une fonction à l'aide de l'instruction static permet à une celle-ci de garder sa valeur à chaque appel de la fonction. L'initilisation d'une variable static se fait au début de la fonction et à chaque appel de la fonction dans le script et elle gardera la valeur du dernier appel.
+      */
+      function stat_fonc(){
+        static $cpt = 0;
+        $cpt++;
+        echo $cpt;
+      };
+      echo "<br> Au premier affichage, cpt vaut : "; stat_fonc();
+      echo "<br>";
+      // doit afficher 2 car le premier appel initialise $cpt à 0 une seule fois et l'incrémente de 1
+
+      echo "Au deuxième affichage, cpt vaut  : "; stat_fonc();
+      echo "<br>";
+
+      echo "Au troisième affichage, cpt vaut dorénavent : "; stat_fonc();
+      echo "<br>";
+
+      /* 2) FONCTION AVANCÉES
+      Il existe trois fonctions utilisées dans la gestion des arguments passés à une fonction dans PHP. Il s'agit de :
+      - func_get_arg qui permet de lire un argument spcifique
+      - func_get_args pour obtenir l'ensemble des arguments sous forme d'un tableau
+      - func_num_args pour connaître le nombre d'arguments reçu par la fonction
+      */
+      function gestion_args_1(){
+        $numargs = func_num_args();
+        echo "<b><u><i>gestion_arg_2</i></u></b>";
+        echo "<br>Nombre d'argument : $numargs\n <br>"; // affiche le nombre d'arguments renseignés à l'appel de la fonction
+      }
+      gestion_args_1(89, 654);
+
+      echo "<br><br>";
+
+      function gest_args_2(){
+        $numargs = func_num_args();
+        echo "<b><u><i>gestion_arg_2</i></u></b>";
+        echo "<br>Nombre d'arguments : $numargs\n <br>";
+        if($numargs >= 2){
+          echo "Le premier argument est : ".func_get_arg(0)."\n <br>";
+          echo "Le deuxième argument est : ".func_get_arg(1)."\n <br>";
+          echo "Le troisième argument est : ".func_get_arg(2)."\n <br>";
+        };
+      };
+      gest_args_2(12, 250, 103);
+
+      /*
+      3) FONCTION DYNAMIQUE
+
+      Vous pouvez vous trouvez dans le cas où vous ne savez pas quelle fonction devra être appelée à un moment précis dans un script donné.
+      Pour cela, il suffit de placer dans une variable le nom d'une fonction, puis d'utiliser cette variable comme une fonction.
+      */
+      echo "<br><br>";
+
+      function ecrire($texte){
+        print($texte);
+      };
+      function ecrireEnGras($texte){
+        print("<b>$texte</b>");
+      };
+      $fonction_var = "ecrire";
+      $fonction_var("toto"); // affiche toto
+      echo "<br>";
+      echo "<br>";
+      $fonction_var = "ecrireEnGras";
+      $fonction_var("toto"); // affiche toto en gras
+      /*
+      4) LA RECURSIVITE
+      Le language PHP supporte les fonctions récursive. Une fonction récusrive est une fonction qui s'appell elle-même.
+
+      Un exemple simple présentant le principe de la récursivité : Affichage à l'envers d'une chaîne de caractère.
+      */
+      $str = "Hello World !";
+
+      reverse_r($str);
+      function reverse_r($str){
+        if(strlen($str) > 0){
+          // sbstr retourne le premier caractère
+          reverse_r(substr($str, 1)); // appel récursif
+          echo "<br>";
+          echo substr($str, 0, 1); // affiche un caractère
+          return;
+        };
+      };
+      /*
+      Les fonctions récursives sont principalement utilisées pour naviguer dans les structures de données dynamiques (liste et arbres).
+
+      Autrement, dans de nombreux cas, la récursivité est équivalente à une répétition (ou itération). Les fonctions récursives sont plus lentes et consomment plus de mémoire que les itérations.
+      */
+      echo "<br><br>";
+      $str_1 = "Salut les amis";
+      reverse_r($str_1);
+      function reverse_r_1($str_1){
+        for($i = 1; $i <= strlen($str_1);$i++){
+          echo substr($str_1, -$i, 1); // affiche un caractère en partant de la fin
+        };
+        return;
+      };
+
+      function nomFonction($nom){
+        return $nom;
+      };
+      $nom = nomFonction("Helder");
       
-
-
-
-
+      function nomComplet($nom, $prenom){
+        echo $nom." ".$prenom;
+      };
+      nomComplet($nom, "Dos Santos");
     ?>
       
     </div>
