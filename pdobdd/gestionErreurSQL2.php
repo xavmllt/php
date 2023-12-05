@@ -5,12 +5,12 @@ $password = "root";
 
 try{
     $cnx = new PDO($dsn, $user, $password);
-    echo "Tout s'est bien passé !";
+    $cnx = setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 }catch(PDOException $e){
     echo "Une erreur est survenue !";
 };
 
-$sql = "SELECT * FROM clients";
+$sql = "SELECT * FROM client";
 $rs_req = $cnx->query($sql);
 while($donnees = $rs_req->fetch(PDO::FETCH_ASSOC)){
     echo "<pre>";
