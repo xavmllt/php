@@ -48,6 +48,7 @@
             <li><a class="dropdown-item" href="boucles.php">Boucles</a></li>
             <li><a class="dropdown-item" href="cnx.php">Connexion BDD</a></li>
             <li><a class="dropdown-item" href="rechercher.php">Rechercher</a></li>
+            <li><a class="dropdown-item" href="compteur.php">Compteur</a></li>
           </ul>
         </li>
       </form>
