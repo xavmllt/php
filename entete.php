@@ -49,6 +49,7 @@
             <li><a class="dropdown-item" href="cnx.php">Connexion BDD</a></li>
             <li><a class="dropdown-item" href="rechercher.php">Rechercher</a></li>
             <li><a class="dropdown-item" href="compteur.php">Compteur</a></li>
+            <li><a class="dropdown-item" href="session.php">Session</a></li>
           </ul>
         </li>
       </form>
